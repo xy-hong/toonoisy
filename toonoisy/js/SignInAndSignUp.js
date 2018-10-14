@@ -43,3 +43,63 @@ $(document).ready(function(){
 	});
 
 });
+
+//控制发送时间
+var Ltime = 60;
+
+function setTime(obj){
+
+
+	
+    if(Ltime==0){
+		obj.removeAttribute("disabled");
+		obj.value = "获取验证码";
+		Ltime = 60;
+		return;
+		}else{
+			obj.setAttribute("disabled",true);
+			obj.value = "(" + Ltime + ")s后重获取";
+			Ltime--;
+			}
+	setTimeout(function(){
+		setTime(obj)
+		},1000)
+	
+	}
+
+// 验证两次密码是否输入一致
+
+function verificationPw(){
+	var fPassword = document.getElementById("password_signup").value;
+	var sPassword = document.getElementById("password_signup_2").value;
+
+	if(fPassword == sPassword){
+		document.getElementById("thisS").innerHTML = "&radic; 密码输入一致";
+		document.getElementById("submit_signup").disabled = false;
+		document.getElementById("thisS").style.color = "green";
+	}else{
+		document.getElementById("thisS").innerHTML = "*  密码输入不一致"
+		document.getElementById("submit_signup").disabled = true;
+		document.getElementById("thisS").style.color = "red";
+	}
+
+}
+//验证表单email是否正确(意思就是说，输入的数据必须包含 @ 符号和点号(.)。
+//同时，@ 不可以是邮件地址的首字符，并且 @ 之后需有至少一个点号：)
+function verifyingEmail(){
+	//username_signup
+	var str2 =  document.forms["myform"]["username_signup"].value;
+	var indextAite = str2.indexOf("@");
+	var indextPoint = str2.lastIndexOf(".");
+
+	if(indextAite < 1 || indextPoint<indextAite+2 || indextPoint+2 >= str2.length){
+		document.getElementById("emailAlert").innerHTML="* 请输入正确的邮箱格式(如：xx@qq.com)"
+		document.getElementById("emailAlert").style.color = "red";
+		document.getElementById("emailAlert").style.display="block";
+
+	}else{
+		document.getElementById("emailAlert").style.display="none";
+		document.getElementById("getVerification").disabled=false;
+	}
+
+}

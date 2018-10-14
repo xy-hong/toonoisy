@@ -9,7 +9,7 @@
 }
 .ancestor_div {
   width: 450px;
-  height: 500px;
+  height: 530px;
   border: 10px solid #eee;
   margin: 100px auto;
   margin-top: 75px;
@@ -154,6 +154,9 @@
   height: 30px;
   border-radius: 5px;
   outline: none;
+}
+#thisS{
+  margin-left:50px;
 }
 body {
   background-color: #f0f0f0;

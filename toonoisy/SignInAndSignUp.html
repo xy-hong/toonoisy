@@ -4,11 +4,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>在线聊天登陆</title>
-    <link href="css/SignInAndSignUp.css" type="text/css" rel="stylesheet" />
+    <link href="SignInAndSignUp.css" type="text/css" rel="stylesheet" />
     <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js">
 
     </script>
-    <script src="js/SignInAndSignUp.js"></script>
+    <script src="SignInAndSignUp.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -79,12 +79,12 @@
 
 
             <div class="registerMain_div " id="registerMain_div">
-                <form action="">
+                <form action="" name="myform">
                     <p>
                         <label for="username_signup">用户名:</label>
 
                         <input id="username_signup" class="input_class" name="username_signup" placeholder=" 请输入你常用的邮箱地址"
-                            required="required">
+                            required="required" onchange="verifyingEmail()" onblur="verifyingEmail()"><span id="emailAlert"></span>
                     </p>
                     <p>
                         <label for="password_signup">密码：</label>
@@ -93,15 +93,15 @@
 
                     </p>
                     <p>
-                        <label for="password_signup_2">验证密码</label>
+                        <label for="password_signup_2">验证密码</label><span id="thisS"></span>
                         <input id="password_signup_2" name="password_signup_2" type="password" class="input_class"
-                            required="required" placeholder=" 再次输入您的密码">
+                            required="required" placeholder=" 再次输入您的密码" onkeyup="verificationPw()"/>
                     </p>
                     <p>
                         <label for="verification">输入验证码</label><br>
                         <input id="verification" name="verification" type="text" class="verification_input"
                             required="required" placeholder="请输入邮箱的验证码"/>
-                        <button id="getVerification" type="button" class="getCode">获取验证码</button>
+                        <input id="getVerification" type="button" class="getCode" onclick="setTime(this)" value="获取验证码" disabled=true/>
                     </p>
                     <p>
                         <button type="submit" id="submit_signup" class="login_submit_button">注册</button>
