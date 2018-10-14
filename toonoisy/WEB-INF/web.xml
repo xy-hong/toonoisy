@@ -1,4 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-	<display-name>toonoisy</display-name>
+	<servlet>
+    	<servlet-name>loginservlet</servlet-name>
+    	<servlet-class>login.Login</servlet-class>
+ 	</servlet>
+ 	<servlet>
+    	<servlet-name>registerservlet</servlet-name>
+    	<servlet-class>login.Register</servlet-class>
+ 	</servlet>
+ 	<servlet>
+    	<servlet-name>codeservlet</servlet-name>
+    	<servlet-class>login.GetCode</servlet-class>
+ 	</servlet>
+ 	
+
+
+
+
+
+	<servlet-mapping>
+    	<servlet-name>loginservlet</servlet-name>
+    	<url-pattern>/login</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+    	<servlet-name>registerservlet</servlet-name>
+    	<url-pattern>/register</url-pattern>
+  	</servlet-mapping>
+  	<servlet-mapping>
+    	<servlet-name>codeservlet</servlet-name>
+    	<url-pattern>/code</url-pattern>
+  	</servlet-mapping>
+
+
+
+
+
+
+
 </web-app>
