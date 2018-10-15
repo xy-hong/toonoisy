@@ -21,6 +21,7 @@ public class Login extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		resp.setCharacterEncoding("utf-8");
 		PrintWriter out = resp.getWriter();
 		
