@@ -103,3 +103,16 @@ function verifyingEmail(){
 	}
 
 }
+
+function jsonHttp(){
+	var httpRequest;
+	if(window.XMLHttpRequest){
+		httpRequest = new XMLHttpRequest();
+	}
+	httpRequest.onreadystatechange = function(){
+		if(httpRequest.readyState == 4 && httpRequest.status == 200){
+			window.alert(httpRequest.responseText);
+		}
+	}
+}
+
