@@ -12,7 +12,6 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import com.sun.mail.util.MailSSLSocketFactory;
@@ -39,14 +38,14 @@ public class PostTool
 	
 	
 	public void setTo(String toAddress) {
-		// ÊÕ¼þÈËµç×ÓÓÊÏä
+		// ï¿½Õ¼ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         this.to = toAddress;
 	}
 	
 	public void setformImf(String formAddress,String fromPsd) {
-		// ·¢¼þÈËµç×ÓÓÊÏä
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         this.from = formAddress;
-		//·¢¼þÈËÃÜÂë
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		this.fromPsd = fromPsd;
 	}
 	
@@ -56,16 +55,7 @@ public class PostTool
 	
 	
 	public void setProperties(String propertiesPath)  {
-		
-		try {
-			properties.store(new FileOutputStream(propertiesPath), null);
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+	
 		properties.setProperty("mail.smtp.host", this.hostServicer);
 		properties.put("mail.smtp.auth", "true");
 		MailSSLSocketFactory sf;
@@ -78,10 +68,10 @@ public class PostTool
 			e.printStackTrace();
 		}
 		
-		session = Session.getDefaultInstance(properties,new Authenticator(){
+		this.session = Session.getInstance(properties,new Authenticator(){
         public PasswordAuthentication getPasswordAuthentication()
             {
-                return new PasswordAuthentication(from, fromPsd); //·¢¼þÈËÓÊ¼þÓÃ»§Ãû¡¢ÃÜÂë
+                return new PasswordAuthentication(from, fromPsd); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             }
         });
 		MailSSLSocketFactory sf1;
@@ -94,6 +84,7 @@ public class PostTool
 			e.printStackTrace();
 		} 
         
+		
 	}
 	
 	
@@ -111,7 +102,7 @@ public class PostTool
 		session = Session.getDefaultInstance(properties,new Authenticator(){
 	        public PasswordAuthentication getPasswordAuthentication()
 	            {
-	                return new PasswordAuthentication(from, fromPsd); //·¢¼þÈËÓÊ¼þÓÃ»§Ãû¡¢ÃÜÂë
+	                return new PasswordAuthentication(from, fromPsd); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	            }
 	        });
 		
@@ -122,21 +113,21 @@ public class PostTool
 	public void setmessage(String head,String messageText) {
 		this.subjectLine = head;
 		this.Text = messageText;
-		 // ´´½¨Ä¬ÈÏµÄ MimeMessage ¶ÔÏó
+		 // ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½ MimeMessage ï¿½ï¿½ï¿½ï¿½
         MimeMessage message = new MimeMessage(session);
 
-        // Set From: Í·²¿Í·×Ö¶Î
+        // Set From: Í·ï¿½ï¿½Í·ï¿½Ö¶ï¿½
         try {
-			message.setFrom(new InternetAddress(from));// Set To: Í·²¿Í·×Ö¶Î
+			message.setFrom(new InternetAddress(from));// Set To: Í·ï¿½ï¿½Í·ï¿½Ö¶ï¿½
 	        message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
-	        // Set Subject: Í·²¿Í·×Ö¶Î
+	        // Set Subject: Í·ï¿½ï¿½Í·ï¿½Ö¶ï¿½
 	        message.setSubject(head);
 
-	        // ÉèÖÃÏûÏ¢Ìå
+	        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
 	        message.setText(messageText);
 
-	        // ·¢ËÍÏûÏ¢
+	        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	        Transport.send(message);
 		} catch (MessagingException mex) {
 			mex.printStackTrace();

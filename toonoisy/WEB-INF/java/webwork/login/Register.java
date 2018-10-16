@@ -82,8 +82,8 @@ public class Register extends HttpServlet{
 			user.setId(account);
 			user.setPassword(psd);
 			userdao.insert(user);
-			recorddao.setTname(user);//......
-			frienddao.setTname(user);//......
+			recorddao.setTname(user);
+			frienddao.setTname(user);
 			recorddao.createTable();
 			frienddao.createTable();
 			out.println("注册成功");

@@ -16,7 +16,7 @@ public class GetCode extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String postaddress = req.getParameter("username_signup");
 		
-		PrintWriter out = resp.getWriter();
+		System.out.println(postaddress);
 		
 		String endtime = new GetEndTime().getendtime();
 		/*DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -30,12 +30,12 @@ public class GetCode extends HttpServlet{
 		
 		//生成验证码
 		//String x = "" +(int)(Math.random()*1000000);
-		String x = null;
+		String x ="";
 		for(int i=0;i<6;i++) {
-		x = "" + (int)(Math.random()*10);
+		x +=  (int)(Math.random()*10);
 		}
-		
-		Post p = new Post("smtp.qq.com",postaddress,"..\\..\\host.properties","【toonosiy官网】","您好，您的验证码是"+ x +"，验证码有效期为10分钟，请尽快输入") ;
+		//String url = getServletContext() + 
+		Post p = new Post("smtp.qq.com",postaddress,"host.properties","【toonosiy官网】","您好，您的验证码是"+ x +"，验证码有效期为10分钟，请尽快输入") ;
 		
 		HttpSession session = req.getSession();
 		session.setAttribute("code", x);
@@ -45,7 +45,7 @@ public class GetCode extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.doGet(req, resp);
+		doGet(req,resp);
 	}
 	
 	

@@ -32,12 +32,12 @@ public class Login extends HttpServlet{
 		User user = userdao.getDO(name);
 		
 		if(user==null) {
-			out.println("ÓÃ»§²»´æÔÚ");
+			out.println("è´¦å·ä¸å­˜åœ¨");
 		}else if(!(user.getPassword().equals(psd))) {
-			out.println("ÕËºÅÃÜÂë´íÎó");
+			out.println("è´¦å·æˆ–è€…å¯†ç é”™è¯¯");
 		}else if(user.getId().equals(name)&&user.getPassword().equals(psd)) {
 			
-			out.print("µÇÂ½³É¹¦");
+			out.print("ç™»é™†æˆåŠŸ");
 			
 			//req.getRequestDispatcher("").forward(req, resp);
 		}
