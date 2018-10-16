@@ -106,18 +106,4 @@ function verifyingEmail(){
 
 //ajax控制邮箱获取验证码
 
-function jsonHttp(){
-	var httpRequest;
-	if(window.XMLHttpRequest){
-		httpRequest = new XMLHttpRequest();
-	}
-	httpRequest.onreadystatechange = function(){
-		if(httpRequest.readyState == 4 && httpRequest.status == 200){
-			window.alert(httpRequest.responseText);
-		}
-	}
-	httpRequest.open("POSt","","true");
-	httpRequest.setRequestHeader("headers","value");
-	httpRequest.send("希望输入的数据");
-}
 
