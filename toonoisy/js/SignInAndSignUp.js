@@ -106,18 +106,37 @@ function verifyingEmail(){
 
 //ajax控制邮箱获取验证码
 
+/*$(document).ready(function(){
+
+	$("#getVerification").click(function(){
+
+		jQuery.post("code",
+
+		{
+			username_signup:$("#username_signup").val(),
+
+		},function(data,status){
+
+			alert("send "+status);
+
+		});
+
+	});
+
+});*/
+
 function jsonHttp(){
-	var httpRequest;
-	if(window.XMLHttpRequest){
-		httpRequest = new XMLHttpRequest();
-	}
+	var httpRequest = new XMLHttpRequest();;
+	var email = document.getElementById("username_signup").value;
+	console.log(email);
 	httpRequest.onreadystatechange = function(){
 		if(httpRequest.readyState == 4 && httpRequest.status == 200){
-			window.alert(httpRequest.responseText);
+			console.log("6666");
 		}
 	}
-	httpRequest.open("POSt","","true");
-	httpRequest.setRequestHeader("headers","value");
-	httpRequest.send("希望输入的数据");
+	httpRequest.open("POST","code",true);
+	httpRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	var emailText = "username_signup="+email;
+	console.log(emailText);
+	httpRequest.send(emailText);
 }
-
