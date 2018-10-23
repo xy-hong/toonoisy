@@ -4,11 +4,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>在线聊天登陆</title>
-    <link href="css/SignInAndSignUp.css" type="text/css" rel="stylesheet" />
+    <link href="SignInAndSignUp.css" type="text/css" rel="stylesheet" />
     <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js">
 
     </script>
-    <script src="js/SignInAndSignUp.js"></script>
+    <script src="SignInAndSignUp.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -33,14 +33,14 @@
         <section>
             <div class="loginMain_div  " id="loginMain_div">
                 <form action="#">
-                    <!-- <label class="control_label" for="input_username">账号</label> -->
+                    <label class="control_label" for="input_username">账号：</label>
                     <div class="ractangle_div">
                         <input type="text" placeholder="  用户名" value="" class="form-control" id="input_username" name="countNumber"
                             required="required" />
                     </div>
 
                     <div class="ractangle_2_div">
-                        <!-- <label class="control_label" for="input_password">密码</label> -->
+                        <label class="control_label" for="input_password">密码：</label>
                         <input type="password" placeholder="  密码" value="" class="form-control" id="input_password" name="password"
                             required="required" />
                     </div>
@@ -77,19 +77,15 @@
 
                     </p>
                     <p>
-                        <label for="password_signup_2">验证密码</label><span id="thisS"></span>
+                        <label for="password_signup_2">验证密码:</label><span id="thisS"></span>
                         <input id="password_signup_2" name="password_signup_2" type="password" class="form-control "
                             required="required" placeholder=" 再次输入您的密码" onkeyup="verificationPw()"/>
                     </p>
                     <p style="position:relative">
-                        <label for="verification">输入验证码</label><br>
+                        <label for="verification">输入验证码:</label><br>
                         <input id="verification" name="verification" type="text" class="form-control " style="width:180px;"
                             required="required" placeholder="请输入邮箱的验证码"/>
-<<<<<<< HEAD
                         <input id="getVerification" class="btn btn-muted " type="button" style="position:absolute; left:199px ;top:32px;" onclick="setTime(this)" value="获取验证码" disabled=true>
-=======
-                        <input type="button" id="getVerification"  class="getCode"  onclick="jsonHttp();setTime(this)" value="获取验证码" disabled="true"/>
->>>>>>> 40b10b401e5b4d648b892e16979be544c80b4a89
                     </p>
                     <p>
                         <button type="submit" id="submit_signup" class="btn btn-primary btn-block">注册</button>
