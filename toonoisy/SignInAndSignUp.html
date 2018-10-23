@@ -4,11 +4,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>在线聊天登陆</title>
-    <link href="SignInAndSignUp.css" type="text/css" rel="stylesheet" />
+    <link href="css/SignInAndSignUp.css" type="text/css" rel="stylesheet" />
     <script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js">
 
     </script>
-    <script src="SignInAndSignUp.js"></script>
+    <script src="js/SignInAndSignUp.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -85,7 +85,11 @@
                         <label for="verification">输入验证码</label><br>
                         <input id="verification" name="verification" type="text" class="form-control " style="width:180px;"
                             required="required" placeholder="请输入邮箱的验证码"/>
+<<<<<<< HEAD
                         <input id="getVerification" class="btn btn-muted " type="button" style="position:absolute; left:199px ;top:32px;" onclick="setTime(this)" value="获取验证码" disabled=true>
+=======
+                        <input type="button" id="getVerification"  class="getCode"  onclick="jsonHttp();setTime(this)" value="获取验证码" disabled="true"/>
+>>>>>>> 40b10b401e5b4d648b892e16979be544c80b4a89
                     </p>
                     <p>
                         <button type="submit" id="submit_signup" class="btn btn-primary btn-block">注册</button>

@@ -107,6 +107,7 @@ function verifyingEmail(){
 }
 
 //ajax控制邮箱获取验证码
+<<<<<<< HEAD
 $(document).ready(function(){
 	$("#getVerification").click(function(){
 		$.ajax({
@@ -124,3 +125,40 @@ $(document).ready(function(){
 		});
 	});
 });
+=======
+
+/*$(document).ready(function(){
+
+	$("#getVerification").click(function(){
+
+		jQuery.post("code",
+
+		{
+			username_signup:$("#username_signup").val(),
+
+		},function(data,status){
+
+			alert("send "+status);
+
+		});
+
+	});
+
+});*/
+
+function jsonHttp(){
+	var httpRequest = new XMLHttpRequest();;
+	var email = document.getElementById("username_signup").value;
+	console.log(email);
+	httpRequest.onreadystatechange = function(){
+		if(httpRequest.readyState == 4 && httpRequest.status == 200){
+			console.log("6666");
+		}
+	}
+	httpRequest.open("POST","code",true);
+	httpRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	var emailText = "username_signup="+email;
+	console.log(emailText);
+	httpRequest.send(emailText);
+}
+>>>>>>> 40b10b401e5b4d648b892e16979be544c80b4a89
