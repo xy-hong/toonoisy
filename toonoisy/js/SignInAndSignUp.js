@@ -58,7 +58,7 @@ function setTime(obj){
 		return;
 		}else{
 			obj.setAttribute("disabled",true);
-			obj.value = "(" + Ltime + ")s后重获取";
+			obj.value = "(" + Ltime + ")s后可重获取";
 			Ltime--;
 			}
 	setTimeout(function(){
@@ -77,6 +77,8 @@ function verificationPw(){
 		document.getElementById("thisS").innerHTML = "&radic; 密码输入一致";
 		document.getElementById("submit_signup").disabled = false;
 		document.getElementById("thisS").style.color = "green";
+	}else if(fPassword==""&&sPassword==""){
+		document.getElementById("thisS").style.display="none";
 	}else{
 		document.getElementById("thisS").innerHTML = "*  密码输入不一致"
 		document.getElementById("submit_signup").disabled = true;
@@ -96,7 +98,7 @@ function verifyingEmail(){
 		document.getElementById("emailAlert").innerHTML="* 请输入正确的邮箱格式(如：xx@qq.com)"
 		document.getElementById("emailAlert").style.color = "red";
 		document.getElementById("emailAlert").style.display="block";
-
+		document.getElementById("getVerification").disabled=true;
 	}else{
 		document.getElementById("emailAlert").style.display="none";
 		document.getElementById("getVerification").disabled=false;
@@ -105,5 +107,20 @@ function verifyingEmail(){
 }
 
 //ajax控制邮箱获取验证码
-
-
+$(document).ready(function(){
+	$("#getVerification").click(function(){
+		$.ajax({
+			type:"POST",
+			url:"",
+			data:{username_signup:$("#username_signup").val()},
+			dataType:"json",
+			success:function(data){
+				if(data.success){
+					alert(data.msg);
+				}else{alert("发生错误"+data.msg);}
+			},error:function(jqXHR){
+				alert("发生错误"+jqXHR.status)
+			}
+		});
+	});
+});

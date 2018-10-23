@@ -8,9 +8,9 @@
   color: #fff;
 }
 .ancestor_div {
-  width: 450px;
-  height: 530px;
-  border: 10px solid #eee;
+  width: 434px;
+  height: 520px;
+  border: 2px solid rgb(191, 209, 250);
   margin: 100px auto;
   margin-top: 75px;
   background-color: #fff;
@@ -41,26 +41,25 @@
 
 .loginMain_div {
   width: 300px;
-  height: 350px;
-  left: 80px;
+  height: 345px;
+  left: 71px;
   top: 100px;
   position: absolute;
 }
 .ractangle_div {
   width: 300px;
-  height: 70px;
+  height: 50px;
   position: absolute;
 }
 .ractangle_2_div {
   width: 300px;
-  height: 70px;
+  height: 50px;
   position: absolute;
   top: 90px;
 }
 .local_storage {
   width: 300px;
   height: 50px;
-  position: absolute;
   top: 180px;
 }
 .login_submit {
@@ -69,26 +68,8 @@
   position: absolute;
   bottom: 90px;
 }
-.login_submit_button {
-  width: 300px;
-  height: 50px;
-  background-color: #3c0;
-  outline: none;
-  border-radius: 10px;
-  box-shadow: 0px 2px 3px 2px;
-  font-size: 16px;
-}
-.login_submit_button:hover {
-  background-color: #fc0;
-}
-.getCode {
-  margin-left: 20px;
-  width: 110px;
-  height: 28px;
-  border-radius: 5px;
-  box-shadow: 0px 1px 2px 1px;
-  background-color: #dbdbdb;
-}
+
+
 .kindsof_div {
   width: 300px;
   height: 50px;
@@ -131,7 +112,7 @@
   display: inline-block;
   width: 100%;
   height: 100%;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
 }
 .main_nav div a:hover {
@@ -143,15 +124,14 @@
 }
 
 .registerMain_div {
-  width: 300px;
-  height: 350px;
-  left: 80px;
+  width: 339px;
+  height: 413px;
+  left: 60px;
   top: 100px;
   position: absolute;
 }
 #verification {
   width: 150px;
-  height: 30px;
   border-radius: 5px;
   outline: none;
 }
