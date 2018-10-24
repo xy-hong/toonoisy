@@ -1,0 +1,78 @@
+
+#memberDisply{
+    width:100%;
+    height:450px;
+    border-radius:3px;
+    padding-left: 0%;
+}
+
+#cMTopDiv{
+    width:653px;
+    height:350px;
+    background:white;
+}
+/*  */
+#cMButtonDiv{
+    width:653px;
+    height:220px;
+    position:relative;
+    
+}
+#cMButtonDiv+div{
+    width:648px;
+    height: 42px;
+}
+#cMButtonDiv div button{
+    margin-left: 0px;
+    border-radius:0;
+}
+#wordTextarea{
+    width:648px;
+    height:136px;
+    text-align:left;
+   
+}
+
+#buttonDiv{
+    position:absolute;
+}
+
+
+
+textarea{
+    resize:none;
+}
+
+
+#roomName{
+
+    margin-top:2px;
+    text-align: left;
+   
+}
+/*
+    修改密码的div
+*/
+#changePassword{
+    width:300px;
+    margin-top:20px;
+    border:solid 1px gray;
+}
+
+/*
+    修改密码
+*/
+
+
+.changePassword_submit {
+    width: 150px;
+    height: 50px;
+    background-color: #3c0;
+    outline: none;
+    border-radius: 10px;
+    box-shadow: 0px 2px 3px 2px;
+    font-size: 16px;
+  }
+.changePassword_submit:hover {
+    background-color: #fc0;
+  }
