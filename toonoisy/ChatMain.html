@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="chatMain.css">
+    <link rel="stylesheet" type="text/css" href="css/chatMain.css">
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -18,7 +18,7 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <script src="chatMain.js"></script>
+    <script src="js/chatMain.js"></script>
     <!--
         bootstrap3
     -->
@@ -26,10 +26,15 @@
 	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+
+    <script src="js/jsLib.js"></script>
+    
+
     <title>Helloworld</title>
+    
 </head>
 
-<body>
+<body onload="initMaster(),connectionWebsocket()">
     <header>
         <!-- <div id="carouseSlideHead" class="carousel slide " data-ride="carousel">
             <ol class="carousel-indicators">
@@ -90,9 +95,10 @@
             <div id="mainLeftDiv" class=" col-3 clearfix ">
                 <div id="nmDiv" class="border border-info rounded panel panel-info">
                     <div class="panel-heading">
-                        <h6 style="text-align:center">阿波罗一号</h6>
+                        <!-- 聊天室名称 -->
+                        <h6 id="roomName" style="text-align:center">public</h6>
                     </div>
-                    <div class="panel-body" style="text-align:center">当前有4人在线</div>
+                    <div class="panel-body" style="text-align:center">当前有？人在线</div>
                 </div>
 
                 <div id="memberDisply" class="border border-info  mt-5 panel panel-info ">
@@ -106,8 +112,8 @@
                                     <th>昵称</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
+                           <tbody>
+                             <!--   <tr>
                                     <td>769224261@qq.com</td>
                                     <td>大支佬</td>
                                 </tr>
@@ -123,6 +129,7 @@
                                     <td>11859779482@qq.com</td>
                                     <td>kongkong</td>
                                 </tr>
+                            --> 
                             </tbody>
                         </table>
                     </div>
@@ -136,16 +143,17 @@
                     <div class="panel-heading ">
                         <h4 class="mt-1 mb-0">聊天室</h4>
                     </div>
-                    <div class="panel-body ">Helloworld</div>
+                    <div id="screen" class="panel-body ">Helloworld</div>
                 </div>
                 <div id="cMButtonDiv" class="border border-info  panel panel-info" style="background:#d9edf7;position: relative;" >
                     <!-- 648*42 -->
                     <div class="panel-heading  "style=" padding:0px 0px;">
                     
                     </div>
+                        <!-- 这里是输入框-->
                         <textarea name="input" id="input"  style=" margin:4px;margin-bottom: 0px; width:640px;height:155px; overflow: auto" ></textarea>
                         <div style="width:640px; height:40px;margin-left:4px; ">
-                                <button class="btn btn-light float-right">发送文本</button>
+                                <button class="btn btn-light float-right" onclick="sendMessage()">发送文本</button>
                             <button class="btn  btn-light float-right" id="emotion" style="margin-left: 0px;">表情</button>
                             <button class="btn  btn-light float-right" id="sendPicture" >发送图片</button>
                             <button class="btn  btn-light float-right" id="file" >文件上传</button>
@@ -165,10 +173,10 @@
             <div id="functionArea" class="  col-3  " style="margin-left:100px;">
                 
                 <p>
-                    <textarea name="master" id="master" rows="2" readonly="readonly" class="mt-1" style="border-color:dodgerblue;text-align: center;background: #f5f5f5;width:100% ">769224261@qq.com</textarea>
+                    <textarea  name="master" id="master" rows="2" readonly="readonly" class="mt-1" style="border-color:dodgerblue;text-align: center;background: #f5f5f5;width:100% "></textarea>
                 </p>
                     <p class="mt-3">
-                        <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo1">好友列表</button>
+                        <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo1" onclick="getFriendList()">好友列表</button>
                         <div class="collapse" id="demo1">
                            <table class="table table-hover mt-2 ">
                                 <thead>
@@ -177,8 +185,8 @@
                                         <th>Remarks</th>
                                     </tr>
                                 </thead>
-                                    <tbody>
-                                        <tr>
+                                    <tbody id="friendList">
+                                    <!--  <tr>
                                             <td>769224261@qq.com</td>
                                             <td>大佬</td>
                                         </tr>
@@ -194,6 +202,7 @@
                                                     <td>11859779482@qq.com</td>
                                                     <td></td>
                                                 </tr>
+                                    -->
                                     </tbody>
                                 
 
@@ -255,7 +264,6 @@
     <!-- <footer class="text-center  bg-secondary py-4">
         软件工程大作业@616
     </footer> -->
-    
 </body>
 
 </html>
