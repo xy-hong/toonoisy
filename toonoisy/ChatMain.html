@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/chatMain.css">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="js/chatMain.js"></script>
+    <!--
+        bootstrap3
+    -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <script src="js/jsLib.js"></script>
+   
+
+    <title>Helloworld</title>
+    
+</head>
+
+<body onload="initMaster(),connectionWebsocket()">
+    <header>
+        <!-- <div id="carouseSlideHead" class="carousel slide " data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouseSlideHead" data-slide-to="0" class="active"></li>
+                <li data-target="#carouseSlideHead" data-slide-to="1"></li>
+                <li data-target="#carouseSlideHead" data-slide-to="2"></li>
+                <li data-target="#carouseSlideHead" data-slide-to="3"></li>
+            </ol>
+            <div class="carousel-inner ">
+                <div class="carousel-item active ">
+                    <img class="d-block w-50 container" src="C:\Users\76922\Desktop\在线聊天项目代码\新建文件夹\艺术1.jpg" alt="First slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-50 container" src="C:\Users\76922\Desktop\在线聊天项目代码\新建文件夹\发送框.jpg" alt="Second slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-50 container" src="C:\迅雷下载\steam、\1.jpg" alt="Third slide">
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-50 container" src="C:\迅雷下载\steam、\5.jpg" alt="Fouth slide">
+                </div>
+
+            </div>
+            <a class="carousel-control-prev " href="#carouseSlideHead" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next " href="#carouseSlideHead" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div> -->
+
+    </header>
+    <main>
+        <!-- <div class="container bg-light pb-4  row" id="mainDiv">
+            <div id="leftDiv bg-primary "class="col-2 pr-0">
+                <ul class="list-group" style="cursor:pointer">
+                    <a class="list-group-item list-group-item-action active " href="#1" role="tab" aria-controls="1" data-toggle="list" id="a">1</a>
+                    <a class="list-group-item list-group-item-action" href="#2" role="tab" aria-controls="2" data-toggle="list" id="b">2</a>
+                    <a class="list-group-item list-group-item-action" href="#3" role="tab" aria-controls="3" data-toggle="list" id="c">3</a>
+                    <a class="list-group-item list-group-item-action" href="#4" role="tab" aria-controls="4" data-toggle="list" id="d">4</a>
+                </ul>
+            </div>
+            <div id="middleDiv " class="col-4 bg-secondary tab-content bg-light">
+                <div class="tab-pane active fade show" id="1" aria-labelledby="a"> 1</div>
+                <div class="tab-pane fade" id="2">2</div>
+                <div class="tab-pane fade" id="3">3</div>
+                <div class="tab-pane fade" id="4">4</div>
+            </div>
+            <div id="rightTopDiv"></div>
+            <div id="rightButtomDiv"></div>
+        </div> -->
+        <div id="mainDiv" class="row clearfix">
+            <!--
+                左边主要内容
+            -->
+            <div id="mainLeftDiv" class=" col-3 clearfix ">
+                <div id="nmDiv" class="border border-info rounded panel panel-info">
+                    <div class="panel-heading">
+                        <!-- 聊天室名称 -->
+                        <h6 id="roomName" style="text-align:center">public</h6>
+                    </div>
+                    <div id="roomNumber" class="panel-body" style="text-align:center">当前有？人在线</div>
+                </div>
+
+                <div id="memberDisply" class="border border-info  mt-5 panel panel-info ">
+                    
+                    <div class="panel-heading "><p style="text-align:center;">房间成员</p></div>
+                    <div class="panel-body">
+                        <table class="table table-hover">
+                            <thead >
+                                <tr>
+                                    <th>Email</th>
+                                    <th>昵称</th>
+                                </tr>
+                            </thead>
+                            <tbody id="roomMember">
+                                <tr>
+                                    <td>769224261@qq.com</td>
+                                    <td>大支佬</td>
+                                </tr>
+                                <tr>
+                                    <td>1171779482@qq.com</td>
+                                    <td>二师兄</td>
+                                </tr>
+                                <tr>
+                                    <td>8579482@gmail.com</td>
+                                    <td>小红</td>
+                                </tr>
+                                <tr>
+                                    <td>11859779482@qq.com</td>
+                                    <td>kongkong</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--
+                中间聊天区域
+            -->
+            <div id="chatMainDiv" class=" col-5  " style="padding-left: 5px; margin-left:5px;" >
+                <div id="cMTopDiv"  class="panel panel-info" style="background:#f5f5f5">
+                    <div class="panel-heading ">
+                        <h4 class="mt-1 mb-0">聊天室</h4>
+                    </div>
+                    <!-- 这里是聊天室的显示框 -->
+                    <div style="position: relative;word-wrap:break-word;word-break:break-all;overflow:auto; width:651px;height:300px;" id="screen" class="panel-body "></div>
+                </div>
+                <div id="cMButtonDiv" class="border border-info  panel panel-info" style="background:#d9edf7;position: relative;" >
+                    <!-- 648*42 -->
+                    <div class="panel-heading  "style=" padding:0px 0px;">
+                    
+                    </div>
+                    
+                    <!-- 表情框 -->
+                     <div class="collapse" id="emoji"><script>
+                            // &#x1F601 -- &#x1F637
+                            var start = parseInt("1F601",16);
+                            var end = parseInt("1F637",16);
+                            var node = document.getElementById("emoji");
+                            var emoji ;
+                            for( ; start<=end; start++ )   {
+                                emoji = "&#x"+start.toString(16);
+                                node.innerHTML+="<button class='btn btn-light' onclick='addEmoji(this)' style='font-size:20px'>"+emoji+"</button>";
+                            } 
+                            node.innerHTML+="<button class='btn btn-light' onclick='addEmoji(this)' style='font-size:20px'>&#x1F495</button>";
+                        </script>
+                   </div>
+                        
+                        <!-- 这里是输入框-->
+                        <textarea name="input" id="input"  style=" margin:4px;margin-bottom: 0px; width:640px;height:155px; overflow: auto" ></textarea>
+                        <div style="width:640px; height:40px;margin-left:4px; ">
+                                <button class="btn btn-light float-right" onclick="sendMessage()">发送文本</button>
+                            <button class="btn  btn-light float-right"  style="margin-left: 0px;" data-toggle="collapse" data-target="#emoji">表情</button>
+                            <button class="btn  btn-light float-right" id="sendPicture" >发送图片</button>
+                            <button class="btn  btn-light float-right" id="file" >文件上传</button>
+                       
+                        </div>
+                    
+                  
+                    
+                </div>
+                
+            </div>
+            <!--
+                功能区域
+            -->
+            <!-- <button id="functionControl" class="btn btn-block btn-info ml-2" data-toggle="collapse" data-target="#functionArea" style="width:200px; height:40px;">></button> -->
+           
+            <div id="functionArea" class="  col-3  " style="margin-left:100px;">
+                
+                <p>
+                    <textarea name="master" id="master" rows="2" readonly="readonly" class="mt-1" style="border-color:dodgerblue;text-align: center;background: #f5f5f5;width:100% "></textarea>
+                </p>
+                    <p class="mt-3">
+                        <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo1" onclick="getFriendList()">好友列表</button>
+                        <div class="collapse" id="demo1">
+                           <table class="table table-hover mt-2 ">
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                    <tbody id="friendList">
+                                        <tr>
+                                            <td>769224261@qq.com</td>
+                                            <td>大佬</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1171779482@qq.com</td>
+                                            <td>弟弟</td>
+                                        </tr>
+                                        <tr>
+                                                <td>8579482@gmail.com</td>
+                                                <td>该死的老板</td>
+                                        </tr>
+                                        <tr>
+                                                    <td>11859779482@qq.com</td>
+                                                    <td></td>
+                                                </tr>
+                                    </tbody>
+                                
+
+                           </table>
+                        </div>
+                    </p>
+               
+               <!-- 添加关注 -->
+               <p>
+                    <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo3">关注好友</button>
+                    <div class="collapse" id="demo3" style="position:relative">
+                        <input id="followId" type="text" class="form-control" style="width:161px;" placeholder="请输入关注对象账号...">
+                        <button onclick="followFriend()" id="addFollower" class="btn  btn-info" style="position:absolute; left:167px; bottom:0px; width:100px;">添加</button>
+                    </div>
+                </p>
+               
+               
+               <!-- 修改字体颜色-->
+
+                <p>
+
+                    <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo5">修改字体颜色</button>
+
+                    <div id="demo5" class="collapse" style="position:relative">
+
+                        <input type="color" id="fontColor" class="form-control " placeholder="请输入基本颜色..." style="width:150px;">
+
+                        <button id="changeColor" class="btn btn-info btn-block  " onclick="changecolor()" style="width:90px; position: absolute; left:155px; bottom: 0px;">变更</button>
+
+                    </div>
+
+                </p>
+               
+                    <p> 
+                        <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo2">创建房间</button>
+                        <form action="">
+                            <div class="collapse mt-2 form-inline" id="demo2">
+                            
+                                <input type="text" class="form-control" style="width:150px;" placeholder="请输入房间名...">
+                                <button type="submit" class="btn btn-info  ml-1" style="width:90px;">创建</button>
+                        
+                            
+                        </div></form></p>   
+                    <!--
+                    修改用户名
+                -->
+                <p>
+                    <button class="btn btn-info btn-block" data-toggle="modal" data-target="#changeMessage">
+                        修改用户信息
+                    </button>
+                    <div id="changeMessage" class="modal" role="dialog" tabindex="-1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <p class="modal-title">修改用户信息</p>
+                                    <button class="close" data-dismiss="modal" aria-label="close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input id="username" type="text" placeholder="用户昵称" class=" form-control">
+                                    <button class="btn btn-info " style="float:right;margin-top: 5px;" onclick="changeInfo()">修改信息</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p>
+                            <p>
+                                <button class="btn btn-info btn-block" data-toggle="modal" type="button" data-target="#cPMain">
+                                        修改密码
+                                    </button>
+                                    <div id="cPMain" class="modal" role="dialog" tabindex="-1">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <p class="modal-title">修改密码</p>
+                                                    <button class="close" data-dismiss="modal" type="button" aria-label="close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="#">
+                                                        <p><input class="form-control" id="oldPassword" type="password" placeholder="请输入您的旧密码"
+                                                                required="required" /></p>
+                                                        <p><input class="form-control" id="newPassword" type="password" placeholder="请输入您的新密码"
+                                                                required="required" /></p>
+                                                        <p><input class="form-control" id="aNewPassword" type="password" placeholder="请确认您的新密码"
+                                                                required="required" onkeyup="verification()" /><span id="thisS"></span></p>
+                                                        <p><button type="button" class="btn btn-info btn-block" id="submit" onclick="alterPassword()">重置</button></p>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p>
+                   
+            </div>
+
+
+        </div>
+    </main>
+    <!-- <div class="bottom_illustrate">
+        <p class="message_p">软件工程大作业</p>
+    </div> -->
+    <!-- <footer class="text-center  bg-secondary py-4">
+        软件工程大作业@616
+    </footer> -->
+    
+</body>
+</html>

@@ -19,6 +19,8 @@ public class RoomTest {
 	public static void testRoom() {
 		room = new Room("public");
 		assertNotNull(room);
+		
+		
 	}
 
 	@Test

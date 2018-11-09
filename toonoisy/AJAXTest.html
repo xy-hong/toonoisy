@@ -12,7 +12,9 @@
 	  {
 	    if (xmlhttp.readyState==4 && xmlhttp.status==200)
 	    {
-	      alert("发送成功");
+	    	var reText = xmlhttp.responseText;
+	      alert(reText);
+	     // doucment.getElemnetById("screen").innerHTML=reText;
 	    }
 	  }
 	 
@@ -21,13 +23,17 @@
 	  var t = "email="+email;
 	  console.log(t);
 	  xmlhttp.send(t);
+	  //return ;
   }
 </script>
 </head>
 <body>
+  <div id="screen"></div>
   <form action="post">
+    
     <input  type="text" id="email" name="email" />
-    <button onclick="sendEmail()">发送</button>
+    <!-- <button onclick="sendEmail()" type="button">发送</button> -->
+    <input type="button" onclick="sendEmail()"  value="发送"/>
   </form>
 
 </body>

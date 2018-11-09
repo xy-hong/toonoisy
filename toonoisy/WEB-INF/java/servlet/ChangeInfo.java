@@ -1,4 +1,4 @@
-package test;
+package servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,19 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.alibaba.fastjson.support.spring.annotation.ResponseJSONP;
+import DAO.Impl.UserInfDAOImpl;
+import entity.UserInfo;
 
 /**
- * Servlet implementation class AJAXTest
+ * Servlet implementation class ChangeInfo
  */
-@WebServlet("/AJAXTest")
-public class AJAXTest extends HttpServlet {
+@WebServlet("/ChangeInfo")
+public class ChangeInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AJAXTest() {
+    public ChangeInfo() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,28 +30,30 @@ public class AJAXTest extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		doPost(request,response);
+		String id = request.getParameter("id");
+		String username = request.getParameter("username");
+		
+		response.setCharacterEncoding("utf-8");
+		
+		UserInfDAOImpl dao = new UserInfDAOImpl();
+		UserInfo info = dao.getDO(id);
+		
+		if(info!=null) {
+			info.setName(username);
+			response.getWriter().print("修改成功");
+		}else {
+			response.getWriter().print("修改失败");
+		}
+		
+		
 	}
 
 	/**
-	 * @return 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String email = request.getParameter("email");
-		//response.setContentType("text/html;charset=utf-8");
-		if("1015683970@qq.com".equals(email)) {
-			response.getWriter().print("you did it");
-			//response.sendRedirect("main.html");
-		}else {
-			response.getWriter().print("nonono");
-		}
-		
-		//response.getWriter().print(email);
-		System.out.println(email);
-		
+		doGet(request, response);
 	}
 
 }

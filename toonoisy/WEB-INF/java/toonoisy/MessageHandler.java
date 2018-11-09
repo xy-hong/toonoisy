@@ -18,6 +18,7 @@ public class MessageHandler{
 	
 	public void handle(String josn ) {
 		Message message = JSON.parseObject(josn, Message.class);
+		System.out.println("message的方法"+message.toJSONString());
 		String type = message.getType();
 		
 		switch(type) {
@@ -34,11 +35,13 @@ public class MessageHandler{
 	private void textHandle(Message message) {
 		String roomName = message.getReceive();
 		Room room =  RoomManger.getInstance().get(roomName);
+		//遍历房间中的每个人，获取对应的socket,发送信息
 		Collection<Online> c  = room.values();
 		for (Online people : c) {
 			people.send(message);
 		}
 	}
+	
 	
 	
 	

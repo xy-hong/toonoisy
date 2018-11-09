@@ -1,10 +1,14 @@
 package toonoisy;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+
+import entity.UserInfo;
 
 public class Room extends ConcurrentHashMap<String, Online>{
 	private String roomName;
@@ -41,5 +45,16 @@ import org.junit.AfterClass;
 	@Override
 	public Online remove(Object key){
 		return super.remove(key);
+	}
+	
+	public List getMembersInfo() {
+		List<UserInfo> list = new LinkedList<UserInfo>();
+		
+		Collection<Online> c = this.values();
+		for (Online online : c) {
+			list.add(online.getInfo());
+		}
+		
+		return list;
 	}
 }
