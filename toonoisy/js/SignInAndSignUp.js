@@ -114,7 +114,7 @@ function jsonHttp(){
 	httpRequest.onreadystatechange = function(){
 		if(httpRequest.readyState == 4 && httpRequest.status == 200){
 			var reText = httpRequest.responseText;
-			//alert(reText);
+			alert(reText);
 			console.log(reText);
 		}
 	}

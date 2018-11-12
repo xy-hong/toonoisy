@@ -28,7 +28,7 @@
 
 
     <script src="js/jsLib.js"></script>
-    
+   
 
     <title>Helloworld</title>
     
@@ -98,7 +98,7 @@
                         <!-- 聊天室名称 -->
                         <h6 id="roomName" style="text-align:center">public</h6>
                     </div>
-                    <div class="panel-body" style="text-align:center">当前有？人在线</div>
+                    <div id="roomNumber" class="panel-body" style="text-align:center">当前有？人在线</div>
                 </div>
 
                 <div id="memberDisply" class="border border-info  mt-5 panel panel-info ">
@@ -112,8 +112,8 @@
                                     <th>昵称</th>
                                 </tr>
                             </thead>
-                           <tbody>
-                             <!--   <tr>
+                            <tbody id="roomMember">
+                                <tr>
                                     <td>769224261@qq.com</td>
                                     <td>大支佬</td>
                                 </tr>
@@ -129,7 +129,6 @@
                                     <td>11859779482@qq.com</td>
                                     <td>kongkong</td>
                                 </tr>
-                            --> 
                             </tbody>
                         </table>
                     </div>
@@ -143,18 +142,35 @@
                     <div class="panel-heading ">
                         <h4 class="mt-1 mb-0">聊天室</h4>
                     </div>
-                    <div id="screen" class="panel-body ">Helloworld</div>
+                    <!-- 这里是聊天室的显示框 -->
+                    <div style="position: relative;word-wrap:break-word;word-break:break-all;overflow:auto; width:651px;height:300px;" id="screen" class="panel-body "></div>
                 </div>
                 <div id="cMButtonDiv" class="border border-info  panel panel-info" style="background:#d9edf7;position: relative;" >
                     <!-- 648*42 -->
                     <div class="panel-heading  "style=" padding:0px 0px;">
                     
                     </div>
+                    
+                    <!-- 表情框 -->
+                     <div class="collapse" id="emoji"><script>
+                            // &#x1F601 -- &#x1F637
+                            var start = parseInt("1F601",16);
+                            var end = parseInt("1F637",16);
+                            var node = document.getElementById("emoji");
+                            var emoji ;
+                            for( ; start<=end; start++ )   {
+                                emoji = "&#x"+start.toString(16);
+                                node.innerHTML+="<button class='btn btn-light' onclick='addEmoji(this)' style='font-size:20px'>"+emoji+"</button>";
+                            } 
+                            node.innerHTML+="<button class='btn btn-light' onclick='addEmoji(this)' style='font-size:20px'>&#x1F495</button>";
+                        </script>
+                   </div>
+                        
                         <!-- 这里是输入框-->
                         <textarea name="input" id="input"  style=" margin:4px;margin-bottom: 0px; width:640px;height:155px; overflow: auto" ></textarea>
                         <div style="width:640px; height:40px;margin-left:4px; ">
                                 <button class="btn btn-light float-right" onclick="sendMessage()">发送文本</button>
-                            <button class="btn  btn-light float-right" id="emotion" style="margin-left: 0px;">表情</button>
+                            <button class="btn  btn-light float-right"  style="margin-left: 0px;" data-toggle="collapse" data-target="#emoji">表情</button>
                             <button class="btn  btn-light float-right" id="sendPicture" >发送图片</button>
                             <button class="btn  btn-light float-right" id="file" >文件上传</button>
                        
@@ -173,7 +189,7 @@
             <div id="functionArea" class="  col-3  " style="margin-left:100px;">
                 
                 <p>
-                    <textarea  name="master" id="master" rows="2" readonly="readonly" class="mt-1" style="border-color:dodgerblue;text-align: center;background: #f5f5f5;width:100% "></textarea>
+                    <textarea name="master" id="master" rows="2" readonly="readonly" class="mt-1" style="border-color:dodgerblue;text-align: center;background: #f5f5f5;width:100% "></textarea>
                 </p>
                     <p class="mt-3">
                         <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo1" onclick="getFriendList()">好友列表</button>
@@ -186,7 +202,7 @@
                                     </tr>
                                 </thead>
                                     <tbody id="friendList">
-                                    <!--  <tr>
+                                        <tr>
                                             <td>769224261@qq.com</td>
                                             <td>大佬</td>
                                         </tr>
@@ -202,13 +218,38 @@
                                                     <td>11859779482@qq.com</td>
                                                     <td></td>
                                                 </tr>
-                                    -->
                                     </tbody>
                                 
 
                            </table>
                         </div>
                     </p>
+               
+               <!-- 添加关注 -->
+               <p>
+                    <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo3">关注好友</button>
+                    <div class="collapse" id="demo3" style="position:relative">
+                        <input id="followId" type="text" class="form-control" style="width:161px;" placeholder="请输入关注对象账号...">
+                        <button onclick="followFriend()" id="addFollower" class="btn  btn-info" style="position:absolute; left:167px; bottom:0px; width:100px;">添加</button>
+                    </div>
+                </p>
+               
+               
+               <!-- 修改字体颜色-->
+
+                <p>
+
+                    <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo5">修改字体颜色</button>
+
+                    <div id="demo5" class="collapse" style="position:relative">
+
+                        <input type="color" id="fontColor" class="form-control " placeholder="请输入基本颜色..." style="width:150px;">
+
+                        <button id="changeColor" class="btn btn-info btn-block  " onclick="changecolor()" style="width:90px; position: absolute; left:155px; bottom: 0px;">变更</button>
+
+                    </div>
+
+                </p>
                
                     <p> 
                         <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo2">创建房间</button>
@@ -220,7 +261,30 @@
                         
                             
                         </div></form></p>   
-                   
+                    <!--
+                    修改用户名
+                -->
+                <p>
+                    <button class="btn btn-info btn-block" data-toggle="modal" data-target="#changeMessage">
+                        修改用户信息
+                    </button>
+                    <div id="changeMessage" class="modal" role="dialog" tabindex="-1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <p class="modal-title">修改用户信息</p>
+                                    <button class="close" data-dismiss="modal" aria-label="close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input id="username" type="text" placeholder="用户昵称" class=" form-control">
+                                    <button class="btn btn-info " style="float:right;margin-top: 5px;" onclick="changeInfo()">修改信息</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p>
                             <p>
                                 <button class="btn btn-info btn-block" data-toggle="modal" type="button" data-target="#cPMain">
                                         修改密码
@@ -243,7 +307,7 @@
                                                                 required="required" /></p>
                                                         <p><input class="form-control" id="aNewPassword" type="password" placeholder="请确认您的新密码"
                                                                 required="required" onkeyup="verification()" /><span id="thisS"></span></p>
-                                                        <p><button type="submit" class="btn btn-info btn-block" id="submit" >重置</button></p>
+                                                        <p><button type="button" class="btn btn-info btn-block" id="submit" onclick="alterPassword()">重置</button></p>
                                                     </form>
                                                 </div>
                                                 <div class="modal-footer">
@@ -264,6 +328,6 @@
     <!-- <footer class="text-center  bg-secondary py-4">
         软件工程大作业@616
     </footer> -->
+    
 </body>
-
 </html>

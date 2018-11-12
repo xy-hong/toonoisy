@@ -3,6 +3,7 @@
  */
 function initMaster(){
 	var name = GetQueryString("username");
+	console.log("你的名字"+name);
 	document.getElementById("master").value = name;
 }
 
@@ -16,7 +17,7 @@ function connectionWebsocket(){
 * 获取好友列表的AJAX
 */
 function getFriendList(){
-	var username = document.getElementById("").value;
+	var username = document.getElementById("master").value;
 	var request = new XMLHttpRequest();
 	
 	request.onreadystatechange = function(){
@@ -27,9 +28,9 @@ function getFriendList(){
 			var friendList = JSON.parse(request.responseText);
 			console.log(friendList);
 			var s = "";
-			for(friend in friendList){
-				console(friend);
-				s += "<tr><td>"+friend.friend_id+"</td><td>"+friend.friend_nick+"</td></tr>";				
+			for(var i=0; i< friendList.length; i++){
+				//console.log(friend);
+				s += "<tr><td>"+friendList[i].friend_id+"</td><td>"+friendList[i].friend_nick+"</td></tr>";				
 			}
 			
 			tbody.innerHTML = s;
@@ -37,7 +38,7 @@ function getFriendList(){
 		}
 	}
 	
-	request.open("POST","URL",true);
+	request.open("POST","FriendList",true);
 	request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	var data = "username="+username;
 	request.send(data);
@@ -47,10 +48,12 @@ function getFriendList(){
 /**
 * 修改密码的AJAX
 */
-function changePassword(){
-	var username = document.getElementById("").value;
-	var oldPassword = document.getElementById("").value;
-	var newPassword = document.getElementById("").value;
+function alterPassword(){
+	var username = document.getElementById("master").value;
+	var oldPassword = document.getElementById("oldPassword").value;
+	var newPassword = document.getElementById("newPassword").value;
+	
+	var request = new XMLHttpRequest();
 	
 	request.onreadystatechange = function(){
 		if(request.readyState == 4 && request.status == 200){
@@ -58,7 +61,7 @@ function changePassword(){
 		}
 	}
 	
-	request.open("POST","URL",true);
+	request.open("POST","AlterPassword",true);
 	request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	var data = "username="+username+"&oldPassword="+oldPassword+"&newPassword="+newPassword;
 	request.send(data);
@@ -76,4 +79,41 @@ function GetQueryString(name)
      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
      var r = window.location.search.substr(1).match(reg);
      if(r!=null)return  unescape(r[2]); return null;
+}
+
+/**
+ * 
+*/
+/**
+ * 添加emoji到文本输入框
+ */
+function addEmoji(emoji){
+	document.getElementById("input").value+=emoji.innerHTML;
+}
+
+/**
+ * 添加用户关注
+ * @returns
+ */
+function followFriend(){
+    var http;
+    var friendid = document.getElementById("followId").value;
+    var master = document.getElementById("master").value;
+    
+    if(window.XMLHttpRequest){
+        http = new XMLHttpRequest();
+    }else{
+        http = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    http.onreadystatechange=function()
+    {
+        if(http.readyState==4 && http.status==200){
+            alert(http.responseText);
+        }
+    }
+    
+    http.open("GET","FollowFriends?username="+master+"&friendid="+friendid,true);
+    http.send();
+
 }

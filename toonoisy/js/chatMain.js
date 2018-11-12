@@ -20,6 +20,17 @@ $(document).ready(function(){
     })
 })
 
+function changecolor() {
+
+
+    var getcolor = document.getElementById("fontColor").value;
+    var texts =  document.getElementsByClassName("myText");
+    for(var i=0; i<texts.length; i++){
+        texts[i].style.color = getcolor;
+    }
+    
+}
+
 // $("ul li").mouseover(function(){
 //     $(this).stop().animate({height:114},200);
 //     $(this).siblings().stop().animate({height:34},200);

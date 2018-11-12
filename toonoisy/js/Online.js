@@ -20,9 +20,11 @@ function online(name){
 		
 		socket.onmessage = function(event){
 			//var obj = JSON.parse(event);
+			/*console.log(event);
+			console.log(event.vaule);*/
 			var s = JSON.parse(event.data);
 			console.log(s);
-			messageHandler(event.value);
+			messageHandler(event.data);
 		};
 		
 		socket.onclose = function(){
@@ -44,7 +46,7 @@ function online(name){
  */
 function getNowTime(){
 	var time = new Date();
-	return time.toLocaleDateString+" "+time.toLocaleTimeString;
+	return time.toLocaleDateString()+" "+time.toLocaleTimeString();
 }
 
 /**
@@ -54,10 +56,11 @@ function getNowTime(){
 function sendMessage(){
 	var username = document.getElementById("master").value;
 	var roomName = document.getElementById("roomName").innerHTML;
-	var creatTime = getNoWTime();
+	var createTime = getNowTime();
+	console.log(createTime);
 	var data = document.getElementById("input").value;
 	document.getElementById("input").value="";    //清除输入框的内容
-	var text = message("text",username,roomName,creatTime,data);
+	var text = message("text",username,roomName,createTime,data);
 	socket.send(text);
 }
 
@@ -66,9 +69,9 @@ function sendMessage(){
  * @param {String} type 
  * @param {String} send 
  * @param {String} receive 
- * @param {String} creatTime 
+ * @param {String} createTime 
  * @param {String} data 
  */
-function message(type, send, receive, creatTime, data){
-	return JSON.stringify({"type":type, "send":send, "receive":receive, "creatTime":creatTime, "data":data });
+function message(type, send, receive, createTime, data){
+	return JSON.stringify({"type":type, "send":send, "receive":receive, "createTime":createTime, "data":data });
 }
