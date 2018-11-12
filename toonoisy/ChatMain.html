@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-cmn-Hans">
 
 <head>
@@ -138,13 +138,21 @@
                 中间聊天区域
             -->
             <div id="chatMainDiv" class=" col-5  " style="padding-left: 5px; margin-left:5px;" >
-                <div id="cMTopDiv"  class="panel panel-info" style="background:#f5f5f5">
-                    <div class="panel-heading ">
-                        <h4 class="mt-1 mb-0">聊天室</h4>
+                <div id="cMTopDiv" class="panel panel-header " style="background:#f5f5f5">
+                    <div style="background-color:#d9edf7; ">
+                        <!-- <h4 class="mt-1 mb-0">聊天室</h4> -->
+                        <!-- 聊天房间标签页-->
+                        <ul class="nav nav-tabs " id="mytab"  >
+                            <li class="active" id="tab_nav_1">
+                                <a href="#tab1" data-toggle="tab"  >聊天室 
+                                    <span class="glyphicon glyphicon-remove" style="cursor:pointer; " id="tab_1_close"></span></a>
+                            </li>
+                        </ul>
                     </div>
                     <!-- 这里是聊天室的显示框 -->
-                    <div style="position: relative;word-wrap:break-word;word-break:break-all;overflow:auto; width:651px;height:300px;" id="screen" class="panel-body "></div>
+                    <div style="position: relative;word-wrap:break-word;word-break:break-all;overflow:auto; width:651px;height:300px;" id="screen" class="panel-body tab-content "></div>
                 </div>
+
                 <div id="cMButtonDiv" class="border border-info  panel panel-info" style="background:#d9edf7;position: relative;" >
                     <!-- 648*42 -->
                     <div class="panel-heading  "style=" padding:0px 0px;">
@@ -251,16 +259,15 @@
 
                 </p>
                
-                    <p> 
-                        <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo2">创建房间</button>
-                        <form action="">
-                            <div class="collapse mt-2 form-inline" id="demo2">
-                            
-                                <input type="text" class="form-control" style="width:150px;" placeholder="请输入房间名...">
-                                <button type="submit" class="btn btn-info  ml-1" style="width:90px;">创建</button>
-                        
-                            
-                        </div></form></p>   
+                    <p>
+                    <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo2">创建房间</button>
+                    
+                        <div class="collapse mt-2 form-inline" id="demo2">
+
+                            <input type="text" class="form-control" style="width:150px;" placeholder="请输入房间名..." id="tab_Title">
+                            <button type="submit" class="btn btn-info  ml-1" style="width:90px;" id="createTab" onclick="addTabFunction()">创建</button>
+                        </div>
+                </p>   
                     <!--
                     修改用户名
                 -->
