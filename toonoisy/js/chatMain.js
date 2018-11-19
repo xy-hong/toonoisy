@@ -45,7 +45,7 @@ function addTabFunction(){
     //ul id mytab  div id screen
     var tabtitle = tabTitle.val();
     var div_pane = tabtitle+'_screen';
-    document.getElementById("screen").innerHTML+="<div id='"+div_pane +"' class='tab-pane'>yoyoy</div>"
+    document.getElementById("screen").innerHTML+="<div id='"+div_pane +"' class='tab-pane'>"+tabtitle+"</div>"
     document.getElementById("mytab").innerHTML+="<li  id='"+ tabtitle +"'><a href='#"+div_pane + "' data-toggle='tab'  >"+tabtitle+"<span class='glyphicon glyphicon-remove' style='cursor:pointer;' onclick='removeTab(parentElement.parentElement.id)'></span></a></li>";
 
 
@@ -59,3 +59,6 @@ function removeTab(roomName){
     document.getElementById(roomName+"_screen").remove();
 }
 
+$(function () {
+    $('[data-toggle="popover"]').popover()
+})
