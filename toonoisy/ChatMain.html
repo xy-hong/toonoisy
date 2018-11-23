@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-cmn-Hans">
 
 <head>
@@ -96,7 +96,7 @@
                 <div id="nmDiv" class="border border-info rounded panel panel-info">
                     <div class="panel-heading">
                         <!-- 聊天室名称 -->
-                        <h6 id="roomName" style="text-align:center">public</h6>
+                        <h6 id="roomName" style="text-align:center"nterRoom(pub)">public</h6>
                     </div>
                     <div id="roomNumber" class="panel-body" style="text-align:center">当前有？人在线</div>
                 </div>
@@ -138,13 +138,24 @@
                 中间聊天区域
             -->
             <div id="chatMainDiv" class=" col-5  " style="padding-left: 5px; margin-left:5px;" >
-                <div id="cMTopDiv"  class="panel panel-info" style="background:#f5f5f5">
-                    <div class="panel-heading ">
-                        <h4 class="mt-1 mb-0">聊天室</h4>
+                <div id="cMTopDiv" class="panel panel-header " style="background:#f5f5f5">
+                    <div style="background-color:#d9edf7; ">
+                        <!-- <h4 class="mt-1 mb-0">聊天室</h4> -->
+                        <!-- 聊天房间标签页-->
+                        <ul class="nav nav-tabs " id="mytab"  >
+                            <li class="active" id="public">
+                                <a href="#public_screen" data-toggle="tab" onclick="changeRoomName(parentElement.id)" >public
+                                    <span class="glyphicon glyphicon-remove" style="cursor:pointer; " id="tab_1_close"></span></a>
+                            </li>
+                        </ul>
                     </div>
                     <!-- 这里是聊天室的显示框 -->
-                    <div style="position: relative;word-wrap:break-word;word-break:break-all;overflow:auto; width:651px;height:300px;" id="screen" class="panel-body "></div>
+                    <div style="position: relative;word-wrap:break-word;word-break:break-all;overflow:auto; width:651px;height:300px;" id="screen" class="panel-body tab-content ">
+                    	<div  class="tab-pane active" id="public_screen" onclick="displayBottom(this.id)"></div>
+                    </div>
+                	
                 </div>
+
                 <div id="cMButtonDiv" class="border border-info  panel panel-info" style="background:#d9edf7;position: relative;" >
                     <!-- 648*42 -->
                     <div class="panel-heading  "style=" padding:0px 0px;">
@@ -169,7 +180,7 @@
                         <!-- 这里是输入框-->
                         <textarea name="input" id="input"  style=" margin:4px;margin-bottom: 0px; width:640px;height:155px; overflow: auto" ></textarea>
                         <div style="width:640px; height:40px;margin-left:4px; ">
-                                <button class="btn btn-light float-right" onclick="sendMessage()">发送文本</button>
+                                <button class="btn btn-light float-right" onclick="sendMessage()">发送文本/Enter</button>
                             <button class="btn  btn-light float-right"  style="margin-left: 0px;" data-toggle="collapse" data-target="#emoji">表情</button>
                             <button class="btn  btn-light float-right" id="sendPicture" >发送图片</button>
                             <button class="btn  btn-light float-right" id="file" >文件上传</button>
@@ -251,16 +262,15 @@
 
                 </p>
                
-                    <p> 
-                        <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo2">创建房间</button>
-                        <form action="">
-                            <div class="collapse mt-2 form-inline" id="demo2">
-                            
-                                <input type="text" class="form-control" style="width:150px;" placeholder="请输入房间名...">
-                                <button type="submit" class="btn btn-info  ml-1" style="width:90px;">创建</button>
-                        
-                            
-                        </div></form></p>   
+                    <p>
+                    <button class="btn btn-info btn-block" data-toggle="collapse" data-target="#demo2">创建房间</button>
+                    
+                        <div class="collapse mt-2 form-inline" id="demo2">
+
+                            <input type="text" class="form-control" style="width:150px;" placeholder="请输入房间名..." id="tab_Title">
+                            <button type="button" class="btn btn-info  ml-1" style="width:90px;" id="createTab" onclick="addTabFunction(),createRoom()">创建</button>
+                        </div>
+                </p>   
                     <!--
                     修改用户名
                 -->

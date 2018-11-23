@@ -57,8 +57,15 @@ function sendMessage(){
 	var username = document.getElementById("master").value;
 	var roomName = document.getElementById("roomName").innerHTML;
 	var createTime = getNowTime();
-	console.log(createTime);
+	//console.log(createTime);
+	
+	
 	var data = document.getElementById("input").value;
+	
+	if(data=="" || data==null){
+		alert("发送消息不能为空");
+		return;
+	}
 	document.getElementById("input").value="";    //清除输入框的内容
 	var text = message("text",username,roomName,createTime,data);
 	socket.send(text);
@@ -74,4 +81,17 @@ function sendMessage(){
  */
 function message(type, send, receive, createTime, data){
 	return JSON.stringify({"type":type, "send":send, "receive":receive, "createTime":createTime, "data":data });
+}
+
+
+/*
+ * 创建房间
+ */
+function createRoom(){
+	var newRoomName = document.getElementById("tab_Title").value;
+	var send = document.getElementById("master").value;
+	
+	var m = message("createRoom",send,"system",getNowTime(),newRoomName);
+	console.log("创建房间"+m);
+	socket.send(m);
 }

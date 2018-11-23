@@ -2,6 +2,7 @@ package toonoisy;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -24,6 +25,7 @@ import entity.UserInfo;
 @ServerEndpoint("/Online/{id}")
 public class Online {
 	private static ConcurrentHashMap<String, Online> OnlinePool = new ConcurrentHashMap<String, Online>();
+	private List rooms;
 	private Session session;
 	private String id;
 	private UserInfo info;
@@ -109,7 +111,7 @@ public class Online {
 		room.put(id, this);
 		
 		/**
-		 * 进入房间提醒
+		 * 封装进入房间提醒
 		 */
 		Message enterMessage = new Message();
 		enterMessage.setType("enterNote");
@@ -121,8 +123,8 @@ public class Online {
 		
 		/**
 		 * 发送房间成员的名字
-		 
-		List nameList = room.getMembersNames();
+		 */
+		/*List nameList = room.getMembersNames();
 		String memberNames = JSON.toJSONString(nameList);
 		//封装房间成员信息并转化为JSON
 		Message memberMessage = new Message();
@@ -132,7 +134,7 @@ public class Online {
 		String JSONRoomMessage = JSON.toJSONString(memberMessage);*/
 		
 		/**
-		 * 发送房间成员的信息
+		 * 封装房间成员的信息
 		 */
 		List InfoList = room.getMembersInfo();
 		String memberInfo = JSON.toJSONString(InfoList, SerializerFeature.WriteNullStringAsEmpty);
@@ -143,7 +145,7 @@ public class Online {
 		String JSONRoomMessage = JSON.toJSONString(memberMessage);
 		
 		/**
-		 * 发送房间人数信息
+		 * 封装房间人数信息
 		 */
 		Message numberMessage = new Message();
 		numberMessage.setType("roomNumber");
@@ -161,17 +163,22 @@ public class Online {
 			people.send(JSONEnterNote);
 		}
 		
-		
-		
-		
-		
-		
-		
-		
 	}
 	
 	
+	public  static ConcurrentHashMap<String, Online> getOnlinePool() {
+		return OnlinePool;
+	}
 	
+	public List getRooms() {
+		return this.rooms;
+	}
 	
+	/*
+	 * 
+	 */
+	/*public boolean exitRoom(String roomName ) {
+		
+	}*/
 
 }
