@@ -43,7 +43,7 @@
 
 
         <section>
-            <div class="loginMain_div  " id="loginMain_div">
+            <div class="loginMain_div  " id="loginMain_div" onkeydown="enterLogin()">
                 <form action="#">
                     <label class="control_label" for="input_username">账号：</label>
                     <div class="ractangle_div">
@@ -60,7 +60,7 @@
                         <input type="checkbox" class="custom-control-input"  name="_rename_me"  id="checkbox"><label for="checkbox" class=" custom-control-label">我同意</label><a href="#">《616基本权利协议》</a>
                     </div>
                     <div class="login_submit">
-                        <button type="button" class="btn btn-primary btn-block mt-3" onclick="login()">登录</button>
+                        <button type="button" class="btn btn-primary btn-block mt-3" onclick="login()" id="login_submit">登录</button>
                     </div>
                     <div class="kindsof_div ">
                         <span><a href="C:\Users\76922\Desktop\在线聊天项目代码\passwordForget.html" target="_blank">找回密码</a> |

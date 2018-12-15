@@ -21,8 +21,6 @@ $(document).ready(function(){
 })
 
 function changecolor() {
-
-
     var getcolor = document.getElementById("fontColor").value;
     var texts =  document.getElementsByClassName("myText");
     for(var i=0; i<texts.length; i++){
@@ -48,10 +46,10 @@ function addTabFunction(){
 	
     var div_pane = tabtitle+'_screen';
     document.getElementById("screen").innerHTML+="<div id='"+div_pane +"' class='tab-pane'></div>"
-    document.getElementById("mytab").innerHTML+="<li  id='"+ tabtitle +"'><a href='#"+div_pane + "' data-toggle='tab' onclick='changeRoomName(parentElement.id)' >"+tabtitle+"<span class='glyphicon glyphicon-remove' style='cursor:pointer;' onclick='removeTab(parentElement.parentElement.id)'></span></a></li>";
+    document.getElementById("mytab").innerHTML+="<li  id='"+ tabtitle +"'><a href='#"+div_pane + "' data-toggle='tab' onclick='switchRoom(parentElement.id)' >"+tabtitle+"<span class='glyphicon glyphicon-remove' style='cursor:pointer;' onclick='removeTab(parentElement.parentElement.id),outRoom(parentElement.parentElement.id)'></span></a></li>";
     
-    
-    document.getElementById(div_pane).scrollIntoView(false);
+    //清除房间名输入框内容
+    var tabtitle = document.getElementById("tab_Title").value ="";
     
 }
 /**
@@ -62,35 +60,35 @@ function removeTab(roomName){
     document.getElementById(roomName).remove();
     document.getElementById(roomName+"_screen").remove();
 }
-
+/*
 function displayBottom(roomName){
 	document.getElementById(roomName).scrollIntoView(false);
-}
+}*/
 
 /**
 
  * 菜单栏
 
  */
-var isOpen = false;
-
-function floatMune(Id){
-	var div_id = Id+"_div"
-    var blockUl = document.getElementById(div_id);
-   
-        isOpen = !isOpen;
-
-        if(isOpen){ 
-
-          blockUl.style.display="block";
-
-        }else{
-
-          blockUl.style.display = 'none';
-
+function floatMune(Id) {
+    function stopPropagation(e) {
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        } else {
+            e.cancelBubble = false;
         }
-
+    }
+    var btn = document.getElementById(Id);
+    var layer = document.getElementById(Id+'_div');
+    btn.onclick = function (e) {
+        layer.style.display = "block";
+        stopPropagation(e);
+   }
+    document.onclick = function (e) {
+        layer.style.display = "none";
+    }
 }
+
 
 /**
 
@@ -114,5 +112,8 @@ function mousePosition(Id){
 
 
 }
+
+
+
 	
 

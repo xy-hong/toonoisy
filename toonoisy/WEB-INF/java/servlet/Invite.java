@@ -7,21 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.RoomService;
+import toonoisy.Message;
 import toonoisy.Online;
+import toonoisy.Room;
 import toonoisy.RoomManger;
 
 /**
- * Servlet implementation class EnterRoom
+ * Servlet implementation class Invite
  */
-@WebServlet("/EnterRoom")
-public class EnterRoom extends HttpServlet {
+@WebServlet("/Invite")
+public class Invite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EnterRoom() {
+    public Invite() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,31 +31,45 @@ public class EnterRoom extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
 		String username = request.getParameter("username");
-		String room = request.getParameter("room");
+		String roomName = request.getParameter("roomName");
+		String receive = request.getParameter("receive");
 		
-		System.out.println(username+"请求进入房间"+room);
+		Room room = RoomManger.getInstance().get(roomName);
+		Online user = Online.getOnlinePool().get(username);
+		Online receiveUser = Online.getOnlinePool().get(receive);
 		
-		if(new RoomService(room, username).enterRoom()) {
-			response.getWriter().print("进入房间");
-		}else {
-			response.getWriter().print("无法进入房间");
+		if(receiveUser==null) {
+			response.getWriter().print("被邀请用户不在线");
+			return;
 		}
 		
-		System.out.println("当前房间管理"+RoomManger.getInstance());
-		System.out.println("当前房间"+RoomManger.getInstance().get(room));
+		if(room!=null && room.get(receive)!=null ) {
+			response.getWriter().print("被邀请用户已经在房间内，无需重复邀请");
+			return;
+		}
+		
+		if(user!=null && receiveUser!=null) {
+			Message message = new Message();
+			message.setType("invite");
+			message.setSend(username);
+			message.setCreateTime(null);
+			message.setReceive(receive);
+			message.setData(roomName);
 			
+			
+			receiveUser.send(message);
+		}
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

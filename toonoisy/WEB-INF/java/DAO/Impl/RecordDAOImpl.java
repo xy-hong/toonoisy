@@ -22,7 +22,7 @@ public class RecordDAOImpl implements RecordDAO{
 	public void createTable() {
 		try {
 			QueryRunner qr = new QueryRunner(jdbcUtil.getDataSource());
-			String sql = "CREATE  TABLE `webchat`.`"+tableName+"` (  `record_id` INT NOT NULL AUTO_INCREMENT ,  `room_name` VARCHAR(50) NULL ,  `create_time` DATETIME NOT NULL ,  `end_time` DATETIME NOT NULL ,  `record` LONGTEXT NOT NULL ,  PRIMARY KEY (`record_id`) )";
+			String sql = "CREATE  TABLE `"+tableName+"` (  `record_id` INT NOT NULL AUTO_INCREMENT ,  `room_name` VARCHAR(50) NULL ,  `create_time` DATETIME NOT NULL ,  `end_time` DATETIME NOT NULL ,  `record` LONGTEXT NOT NULL ,  PRIMARY KEY (`record_id`) )";
 			qr.update(sql);
 		} catch (Exception e) {
 			e.printStackTrace();

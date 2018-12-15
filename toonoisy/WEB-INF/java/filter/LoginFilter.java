@@ -23,22 +23,25 @@ public class LoginFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res,
 			FilterChain chain) throws IOException, ServletException {
-		//System.out.println("abc");
 		HttpServletRequest request=(HttpServletRequest)req;
 		HttpServletResponse response=(HttpServletResponse) res;
 		HttpSession session=request.getSession(false);
+		if(request.getRequestURI().contains("ChatMain")){
 		if(session==null){
-			//System.out.println("cdf");
 			response.sendRedirect(request.getContextPath()+"/SignInAndSignUp.html");
 		return;
 		}
 		else{
-			//System.out.println("qwer");
 			entity.User login=(entity.User)session.getAttribute("user");
 			if(login==null){
 				response.sendRedirect(request.getContextPath()+"/SignInAndSignUp.html");
 				return;
 			}
+			if(login!=null&&!login.getId().equals(request.getParameter("username"))){
+				response.sendRedirect(request.getContextPath()+"/SignInAndSignUp.html");
+				return;
+			}
+		}
 		}
 		chain.doFilter(request, response);
 	}

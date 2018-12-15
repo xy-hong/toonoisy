@@ -1,60 +1,103 @@
 package toonoisy;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import entity.UserInfo;
 
+
+
 public class Room extends ConcurrentHashMap<String, Online>{
-	private String roomName;
-	private List membersNames;
+	/**
+	 * 房间信息
+	 */
+	private RoomInfo roomInfo = new RoomInfo();
 	
+	/**
+	 * 构造函数
+	 * @param roomName 房间名
+	 */
 	public Room(String roomName) {
-		super();
-		this.roomName = roomName;
+		this.roomInfo.setRoomName(roomName);
 	}
 	
-	/**import org.junit.After;
-import org.junit.AfterClass;
-	 * 
-	 * @return String 房间名
-	 */
 	public String getRoomName() {
-		return roomName;
+		return roomInfo.getRoomName();
+	}
+	
+	public RoomInfo getRoomInfo() {
+		return roomInfo;
 	}
 	
 	/**
-	 * @return List 获得房间成员的名字
+	 * 
+	 * @param userId 用户id
+	 * @param user 用户的online对象
+	 * @return
 	 */
-	public List getMembersNames() {
-		membersNames = Collections.list(this.keys());
-		return membersNames;
+	public boolean enterRoom(String userId,Online user) {
+		if(this.get(userId)!=null) {
+			return false;
+		}else {
+			this.put(userId, user);
+			roomInfo.setNumber(roomInfo.getNumber()+1);
+			List<UserInfo> l = roomInfo.getMembersInfo();
+			l.add(user.getInfo());
+			return true;
+		}
 	}
 	
-	@Override
-	public Online put(String key, Online value) {
-		super.put(key, value);
-		return value;
+	/**
+	 * 内部调用了另一个enterRoom
+	 */
+	public boolean enterRoom(String userId) {
+		Online user = Online.getOnlinePool().get(userId);
+		return enterRoom(userId,user);
 	}
 	
-	@Override
-	public Online remove(Object key){
-		return super.remove(key);
+	/**
+	 * 
+	 * @param userId 用户id
+	 * @return
+	 */
+	public boolean outRoom(String userId) {
+		if(this.remove(userId)!=null) {
+			roomInfo.setNumber(roomInfo.getNumber()-1);
+			
+			UserInfo userInfo = Online.getOnlinePool().get(userId).getInfo();
+			roomInfo.getMembersInfo().remove(userInfo);
+			
+			if(this.isEmpty() && !this.getRoomInfo().getRoomName().equals("public")) {
+				RoomManger.getInstance().remove(roomInfo.getRoomName());
+			}
+			
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
-	public List getMembersInfo() {
-		List<UserInfo> list = new LinkedList<UserInfo>();
-		
+	/**
+	 * 
+	 * @param message 信息
+	 */
+	public void sendEveryone(Message message) {
 		Collection<Online> c = this.values();
 		for (Online online : c) {
-			list.add(online.getInfo());
+			online.send(message);
 		}
-		
-		return list;
 	}
+	
+	/**
+	 * 
+	 * @param message 信息
+	 */
+	public void sendEveryone(String message) {
+		Collection<Online> c = this.values();
+		for (Online online : c) {
+			online.send(message);
+		}
+	}
+	
 }

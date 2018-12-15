@@ -5,6 +5,7 @@ import java.util.Date;
 import com.alibaba.fastjson.JSON;
 
 public class Message {
+	
 	private String type;
 	private String send;
 	private String receive;

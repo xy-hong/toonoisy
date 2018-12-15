@@ -190,3 +190,11 @@ function signin(){
 	}
 	
 }*/
+//enter登录
+
+function enterLogin(){
+	if(event.keyCode == 13){
+		var toClick = document.getElementById("login_submit");
+		toClick.click();
+	}
+}

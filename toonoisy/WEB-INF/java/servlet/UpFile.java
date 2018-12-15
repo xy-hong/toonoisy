@@ -1,27 +1,30 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.RoomService;
-import toonoisy.Online;
+import service.UploadService;
+import toonoisy.Message;
 import toonoisy.RoomManger;
+import util.MyTimeUtil;
 
 /**
- * Servlet implementation class EnterRoom
+ * Servlet implementation class UpFile
  */
-@WebServlet("/EnterRoom")
-public class EnterRoom extends HttpServlet {
+@WebServlet("/UpFile")
+public class UpFile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EnterRoom() {
+    public UpFile() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,24 +33,23 @@ public class EnterRoom extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
+UploadService us = new UploadService(request);
 		
-		String username = request.getParameter("username");
-		String room = request.getParameter("room");
+		String username = us.getText("username");
+		String receive = us.getText("room");
+		System.out.println(username+"/////"+receive);
 		
-		System.out.println(username+"请求进入房间"+room);
+		String fileName = us.upload("file", "file");
+	   
 		
-		if(new RoomService(room, username).enterRoom()) {
-			response.getWriter().print("进入房间");
-		}else {
-			response.getWriter().print("无法进入房间");
-		}
+		Message message = new Message();
+		message.setType("file");
+		message.setSend(username);
+		message.setReceive(receive);
+		message.setCreateTime(MyTimeUtil.getCurrentTime());
+		message.setData(fileName);
 		
-		System.out.println("当前房间管理"+RoomManger.getInstance());
-		System.out.println("当前房间"+RoomManger.getInstance().get(room));
-			
+		RoomManger.getInstance().get(receive).sendEveryone(message);
 	}
 
 	/**

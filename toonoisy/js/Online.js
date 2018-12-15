@@ -11,12 +11,13 @@ function online(name){
 	if('WebSocket' in window){
 		alert("正在连接websocket");
 		
-		socket = new WebSocket('ws://localhost:8080/toonoisy/Online/'+name);
+		socket = new WebSocket('ws://localhost:8080/toonoisy2/Online/'+name);
 		//var socket = new WebSocket('ws://localhost:8080/toonoisy/Online');
 		
 		socket.onopen = function(){
 			 console.log("连接打开了");
 		};
+		
 		
 		socket.onmessage = function(event){
 			//var obj = JSON.parse(event);
@@ -85,8 +86,8 @@ function message(type, send, receive, createTime, data){
 
 
 /*
- * 创建房间
- */
+ * 创建房间，弃用
+ 
 function createRoom(){
 	var newRoomName = document.getElementById("tab_Title").value;
 	var send = document.getElementById("master").value;
@@ -95,3 +96,4 @@ function createRoom(){
 	console.log("创建房间"+m);
 	socket.send(m);
 }
+*/

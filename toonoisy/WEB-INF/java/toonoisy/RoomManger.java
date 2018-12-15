@@ -8,7 +8,8 @@ public class RoomManger extends ConcurrentHashMap<String, Room>{
 	
 	static {
 		Room publicRoom = new Room("public");
-		manger.put("public", publicRoom);
+	
+		manger.put("public", publicRoom);	
 	}
 	
 	public static RoomManger getInstance() {

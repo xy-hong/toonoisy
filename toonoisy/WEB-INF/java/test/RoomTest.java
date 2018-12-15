@@ -30,12 +30,12 @@ public class RoomTest {
 	}
 
 	@Test
-	public void testGetMembers() {
+	/*public void testGetMembers() {
 		List list = room.getMembersNames();
 		for (Object object : list) {
 			System.out.println(object);
 		}
-	}
+	}*/
 
 	/*@Test
 	public void testPutStringOnline() {

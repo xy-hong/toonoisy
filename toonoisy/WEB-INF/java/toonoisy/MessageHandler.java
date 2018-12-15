@@ -24,80 +24,12 @@ public class MessageHandler{
 		switch(type) {
 			case "text": this.textHandle(message); break;
 			
-			case "createRoom": createRoomHandler(message);break;
-			
-			case "enterRoom" : enterRoomHandler(message); break;
-			
 			case "invite" : inviteHandler(message); break;
 			
 			default: break;
 		}
 	}
 	
-	
-	/**
-	 * 用户创建房间
-	 * @param message
-	 */
-	private void createRoomHandler(Message message) {
-		System.out.println("进行创建房间");
-		String userID = message.getSend();
-		String roomName = message.getData();
-		
-		Online user = Online.getOnlinePool().get(userID);
-		
-		RoomManger manger = RoomManger.getInstance();
-		Room room = new Room(roomName);
-		room.put(userID, user);
-		manger.put(roomName, room);
-		
-		System.out.println(manger);
-		System.out.println(manger.get(roomName));
-		
-		
-		Message enterMessage = new Message();
-		enterMessage.setType("enterNote");
-		enterMessage.setReceive(roomName);
-		enterMessage.setSend("system");
-		enterMessage.setData(userID);
-		String JSONEnterNote = JSON.toJSONString(enterMessage);
-		
-		Collection<Online> c = room.values();
-		for (Online p : c) {
-			p.send(JSONEnterNote);
-		}
-	}
-	
-	
-	/*
-	 * 将用户加入room集合
-	 */
-	private void enterRoomHandler(Message message) {
-		System.out.println("调用MessageHandler 的 enterRoomHandler(Message message) ");
-		String userID = message.getSend();
-		String roomName = message.getData();
-		
-		Online o = Online.getOnlinePool().get(userID);
-		Room room = new Room(roomName);
-		room.put(userID, o);
-		RoomManger.getInstance().put(userID, room);
-		
-		
-	//	System.out.println(message.toJSONString());
-		
-		Message enterMessage = new Message();
-		enterMessage.setType("enterNote");
-		enterMessage.setReceive(roomName);
-		enterMessage.setSend("system");
-		enterMessage.setData(userID);
-		String JSONEnterNote = JSON.toJSONString(enterMessage);
-		
-		Collection<Online> c = room.values();
-		for (Online p : c) {
-			p.send(JSONEnterNote);
-		}
-		
-	}
 
 	/**
 	 * 

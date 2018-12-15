@@ -2,7 +2,7 @@ package entity;
 
 public class UserInfo {
 	private String id;
-	private String name;
+	private String name = "";
 	@Override
 	public String toString() {
 		return "UserInfo [id=" + id + ", name=" + name + "]";

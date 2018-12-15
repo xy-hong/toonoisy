@@ -4,23 +4,54 @@
  */
 function messageHandler(JSONString){
 	var message = JSON.parse(JSONString);
+	console.log("接收到"+message);
 	switch (message.type)
     {
 	      //普通文本处理
-		  case "text" : textHandler(message);break;
+		  case "text" : textHandler(message); updateRoomRecord(message); screenRoll(); break;
+
+		  case "image" : imageHandler(message); updateRoomRecord(message);screenRoll(); break;
+
+		  case "file" : fileHandler(message); updateRoomRecord(message); screenRoll();break;
 		  
-		  //好友列表
-		  case "roomMember": roomMemberHandler(message);break;
-		  
-		  case "roomNumber" : roomNumberHandler(message); break;
-		  
-		  case "enterNote" : enterNoteHandler(message); break;
+		  case "enterNotice" : enterNoticeHandler(message); break;
+
+		  case "outNotice" : outNoticeHandler(message);break;
 		  
 		  case "invite" : inviteHandler(message);break;
+
+		  case "updateNotice" : updateNoticeHandler(message);break;
     	
   		default:
   	}
 }
+
+function updateNoticeHandler(message){
+	console.log(message.receive);
+	var room = roomManger.get(message.receive);
+	
+	if(room == null){
+		room = new Room(message.receive,0,null);
+		roomManger.set(room.roomName,room);
+	}
+
+	var roomInfo = JSON.parse(message.data);
+
+	console.log(roomInfo.number);
+	console.log(roomInfo.membersInfo);  
+
+	room.roomNumber = roomInfo.number;
+	room.roomMember = roomInfo.membersInfo;
+
+	//如果当前页面是被更新的房间，则更新视图
+	if(message.receive == currentRoomName){
+		//调用切换标签，更新房间的方法
+		updateRoomInfoView();
+		updateRoomMemberView();
+	}
+}
+
+
 
 
 /**
@@ -51,6 +82,13 @@ function textHandler(message){
  * @param {} message
  */
 function imageHandler(message){
+	console.log("调用了img");
+	var screenName = message.receive+"_screen";
+	var screen = document.getElementById(screenName);
+
+	//var master = document.getElementById("master").value;
+	var imgURL = "image/"+message.data;
+	screen.innerHTML+="<div><i>"+message.send+'</i> <span style="color:#C0C0C0">'+message.createTime+"</span><p><img  src="+imgURL+" width='140px' heigth='125px' ></img> </p></div>";
 	
 }
 
@@ -59,42 +97,13 @@ function imageHandler(message){
  * @param {*} message
  */
 function fileHandler(message){
-	
-}
+	console.log("调用了file");
+	var screenName = message.receive+"_screen";
+	var screen = document.getElementById(screenName);
 
-function roomMemberHandler(message){
-	var roomMember = document.getElementById("roomMember");
-	var currentRoomName = document.getElementById("roomName").innerHTML;
-	
-	
-	//因为被封装成字符串的形式，需要再一次prase
-	var receive = message.receive;
-	var members = JSON.parse(message.data);
-	//console.log(members);
-	if(currentRoomName==receive){
-		roomMember.innerHTML="";
-		for(var i=0; i<members.length; i++){
-			roomMember.innerHTML+="<tr><td>"+members[i].id+"</td><td>"+members[i].name+"</td></tr>";
-		}
-	}
-}
-
-/**
- * 显示房间人数
- * @param message
- * @returns
- */
-function roomNumberHandler(message){
-	var roomNumber = document.getElementById("roomNumber");
-	var currentRoomName = document.getElementById("roomName").innerHTML;
-	
-	var receive = message.receive;
-	var number = message.data;
-	if(currentRoomName==receive){
-		roomNumber.innerHTML = "当前房间有"+number+"人在线";
-	}
-	
-	
+	//var master = document.getElementById("master").value;
+	var fileURL = "file/"+message.data;
+	screen.innerHTML+="<div><i>"+message.send+'</i> <span style="color:#C0C0C0">'+message.createTime+"</span><p><a  href="+fileURL+" width='140px' heigth='125px' download="+message.data+"><img src='systemImage/file.png' heigth='70px' width='55px' alt='"+message.data+"' title='"+message.data+",点击下载'></img></a> </p></div>";
 }
 
 function inviteHandler(message){
@@ -120,7 +129,7 @@ function addTabFunction2(roomName){
    
     var div_pane = tabtitle+'_screen';
     document.getElementById("screen").innerHTML+="<div id='"+div_pane +"' class='tab-pane'></div>"
-    document.getElementById("mytab").innerHTML+="<li  id='"+ tabtitle +"'><a href='#"+div_pane + "' data-toggle='tab' onclick='changeRoomName(parentElement.id)' >"+tabtitle+"<span class='glyphicon glyphicon-remove' style='cursor:pointer;' onclick='removeTab(parentElement.parentElement.id)'></span></a></li>";
+    document.getElementById("mytab").innerHTML+="<li  id='"+ tabtitle +"'><a href='#"+div_pane + "' data-toggle='tab' onclick='switchRoom(parentElement.id)' >"+tabtitle+"<span class='glyphicon glyphicon-remove' style='cursor:pointer;' onclick='removeTab(parentElement.parentElement.id),outRoom(parentElement.id)'></span></a></li>";
     
     
     document.getElementById(div_pane).scrollIntoView(false);
@@ -132,9 +141,43 @@ function addTabFunction2(roomName){
  * @param message
  * @returns
  */
-function enterNoteHandler(message){
+function enterNoticeHandler(message){
 	var screenName = message.receive+"_screen";
 	var screen = document.getElementById(screenName);
 
 	screen.innerHTML += "<i style='position:abslute;margin-left:200px;'>"+message.data+"进入当前房间</i><br/>"
+}
+
+/**
+ * 退出房间提示
+ * @param {*} message 
+ */
+function outNoticeHandler(message){
+	var screenName = message.receive+"_screen";
+	var screen = document.getElementById(screenName);
+
+	screen.innerHTML += "<i style='position:abslute;margin-left:200px;'>"+message.data+"退出当前房间</i><br/>"
+}
+
+/**
+ * 当接收到信息时，将消息添加到对应room对象的roomRecord中
+ * @param {Message} message 
+ */
+function updateRoomRecord(message){
+	var receive = message.receive;
+	var room = roomManger.get(receive);
+
+	room.roomRecord.push(message);
+}
+
+/**
+ * 将滚动条移动到最下
+ * @param {*} message 
+ */
+function screenRoll(){
+	
+	//var screenName = message.receive+"_screen";
+	var screen = document.getElementById("screen");
+	//console.log("gundong"+screenName);
+	screen.scrollTop = screen.scrollHeight;
 }

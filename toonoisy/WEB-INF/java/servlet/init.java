@@ -2,28 +2,31 @@ package servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import service.RoomService;
-import toonoisy.Online;
-import toonoisy.RoomManger;
-
 /**
- * Servlet implementation class EnterRoom
+ * Servlet implementation class init
  */
-@WebServlet("/EnterRoom")
-public class EnterRoom extends HttpServlet {
+@WebServlet(
+		urlPatterns = { "/init" }, loadOnStartup = 1)
+public class init extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EnterRoom() {
+    public init() {
         super();
-        // TODO Auto-generated constructor stub
+      /*  try {
+			Class.forName("service.clearService");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
     }
 
 	/**
@@ -31,23 +34,7 @@ public class EnterRoom extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		
-		String username = request.getParameter("username");
-		String room = request.getParameter("room");
-		
-		System.out.println(username+"请求进入房间"+room);
-		
-		if(new RoomService(room, username).enterRoom()) {
-			response.getWriter().print("进入房间");
-		}else {
-			response.getWriter().print("无法进入房间");
-		}
-		
-		System.out.println("当前房间管理"+RoomManger.getInstance());
-		System.out.println("当前房间"+RoomManger.getInstance().get(room));
-			
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

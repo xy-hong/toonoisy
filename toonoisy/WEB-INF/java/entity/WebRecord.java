@@ -1,13 +1,14 @@
 package entity;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class WebRecord {
 	private Integer record_id;
 	private String room_name;
 	private String create_time;
-	private Date end_time;
-	private Date record;
+	private Timestamp end_time;
+	private Timestamp record; 
 	public Integer getRecord_id() {
 		return record_id;
 	}
@@ -38,10 +39,10 @@ public class WebRecord {
 	public void setCreate_time(String create_time) {
 		this.create_time = create_time;
 	}
-	public void setEnd_time(Date end_time) {
+	public void setEnd_time(Timestamp end_time) {
 		this.end_time = end_time;
 	}
-	public void setRecord(Date record) {
+	public void setRecord(Timestamp record) {
 		this.record = record;
 	}
 

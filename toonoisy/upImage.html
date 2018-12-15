@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>上传图片</title>
+<script type="text/javascript">
+function sub1() {
+    let form = document.getElementById('formA');
+    let data = new FormData(form);
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status==200){
+            alert(xhr.responseText);
+        }
+    };
+    xhr.open('POST','UpImage');
+    xhr.send(data)
+}
+</script>
+</head>
+<body>
+	<form id="formA" enctype="multipart/form-data">
+    <input type="text" name="username" id="username">
+    <input type="file" name="image" id="image" multiple="multiple">
+    <input type="button" value="FormData提交一个Form" onclick="sub1()">
+</form>
+</body>
+</html>
