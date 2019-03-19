@@ -11,8 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DAO.UserDAO;
+import DAO.Impl.FriendDAOImpl;
+import DAO.Impl.LockDaoImpl;
 import DAO.Impl.UserDAOImpl;
+import DAO.Impl.UserInfDAOImpl;
 import entity.User;
+import entity.UserInfo;
 
 /**
  * Servlet implementation class SignIn
@@ -55,6 +59,7 @@ public class SignIn extends HttpServlet {
 		
 		//是否存在同名,验证码是否正确
 		UserDAO dao = new UserDAOImpl();
+		LockDaoImpl lock=new LockDaoImpl();
 		User user = dao.getDO(username);
 		
 		if(user!=null) {
@@ -66,6 +71,15 @@ public class SignIn extends HttpServlet {
 			user.setPassword(password);
 			//新建好友列表。消息表
 			//------------待补充
+			UserInfDAOImpl dao2 = new UserInfDAOImpl();
+			UserInfo info = new UserInfo();
+			info.setId(username);
+			dao2.insert(info);
+			
+			FriendDAOImpl dao3 = new FriendDAOImpl();
+			dao3.setTname(user);
+			dao3.createTable();
+			lock.insert(username);
 			dao.insert(user);
 			out.print("注册成功,可以去登录了");
 			//response.setHeader("refresh", "3;url=SignInAndSignUp.html");

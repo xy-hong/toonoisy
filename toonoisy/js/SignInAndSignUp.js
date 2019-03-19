@@ -1,3 +1,10 @@
+//会话清除
+    $(document).ready(function(){
+            var url = "/toonoisy/CleanSession"
+            var request = new XMLHttpRequest();
+            request.open("POST", url);
+            request.send();
+    });
 //隐藏注册模块
 $(document).ready(function(){
 	$("#registerMain_div").hide();

@@ -37,6 +37,10 @@ public class LoginFilter implements Filter{
 				response.sendRedirect(request.getContextPath()+"/SignInAndSignUp.html");
 				return;
 			}
+			/*if(request.getContextPath().contains(login.getId()){
+				response.sendRedirect(request.getContextPath()+"/SignInAndSignUp.html");
+				return;
+			}*/
 			if(login!=null&&!login.getId().equals(request.getParameter("username"))){
 				response.sendRedirect(request.getContextPath()+"/SignInAndSignUp.html");
 				return;
